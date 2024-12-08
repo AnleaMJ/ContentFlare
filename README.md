@@ -5,7 +5,7 @@
 2. **Interactive Refinements:** Users can iteratively refine results for better quality.
 3. **Multi-Format Outputs:** Supports text, images, memes, and video content tailored for different platforms.
 
-Check out the landing page [here.](https://contentflare.finlig.com)
+Check out the landing page [here](https://contentflare.finlig.com) and [here.](https://dataguy.in/contentflare-daily-news-content-generator)
 ## Why Use Vector Databases with LLMs?
 
 LLMs like GPT-4 are powerful for answering questions but lack context about your proprietary data. A vector database solves this by:
