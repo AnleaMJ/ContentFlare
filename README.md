@@ -69,7 +69,7 @@ print(response[&quot;choices&quot;][0][&quot;message&quot;][&quot;content&quot;]
 </details>
 
 # Steps to Make the RAG Application Production-Ready
-
+![image](https://github.com/user-attachments/assets/d13b521c-ceca-4e2b-8fdb-f09777a55ab8)
 ## 1. Refine the Code for Robustness
 Error Handling
 Add error handling for every API call, file operation, and database query.
@@ -240,6 +240,4 @@ assert &quot;Processing&quot; in response.json[&#39;message&#39;]
 4.  Deployment (Cloud Hosting, CI/CD, Monitoring)
 
 Once these optimizations are in place, the application will be reliable, scalable, and secure for production.
-
-![image](https://github.com/user-attachments/assets/d13b521c-ceca-4e2b-8fdb-f09777a55ab8)
 
