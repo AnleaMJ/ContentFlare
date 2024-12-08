@@ -1,7 +1,5 @@
 # ContentFlare
 
-![image](https://github.com/user-attachments/assets/ad8188f3-7669-457b-b49f-03906beb4d24)
-
 # Key Features of the System
 1. **Autonomous Prioritization:** The RAG system dynamically adjusts sources and tone based on user preferences.
 2. **Interactive Refinements:** Users can iteratively refine results for better quality.
@@ -75,6 +73,8 @@ print(response[&quot;choices&quot;][0][&quot;message&quot;][&quot;content&quot;]
 ## 1. Refine the Code for Robustness
 Error Handling
 Add error handling for every API call, file operation, and database query.
+
+<details>
 For example:
 
 ```python
@@ -92,8 +92,14 @@ from flask import abort
 if not prompt or not isinstance(prompt, str):
 abort(400, &quot;Invalid prompt provided.&quot;)
 ```
+</details>
 
 ## 2. Security Enhancements
+- API Key Management
+- Rate Limiting
+- Prevent Injection Attacks
+
+<details>
 
 **API Key Management**
 - Use environment variables to store sensitive API keys.
@@ -114,9 +120,10 @@ from flask_limiter.util import get_remote_address
 
 limiter = Limiter(get_remote_address, app=app, default_limits=[&quot;200 per day&quot;, &quot;50 per hour&quot;])
 ```
-
 **Prevent Injection Attacks**
 Sanitize all inputs to avoid SQL injection, prompt injection, and XSS attacks.
+
+</details>
 
 ## 3. Scalability
 Use a Production-Ready Server
@@ -130,11 +137,9 @@ queue (e.g., Celery with Redis).
 
 ## 4. Optimize Performance
 
-**Batch Processing**
-- Fetch articles and process summaries in batches to reduce latency.
+**Batch Processing**: Fetch articles and process summaries in batches to reduce latency.
 
-**Caching**
-- Cache frequent queries and results using Redis or Memcached to reduce API calls.
+**Caching**: Cache frequent queries and results using Redis or Memcached to reduce API calls.
 
 ## 5. Database Integration
 Use a database for storing user inputs, generated content, and logs. For a production app:
@@ -142,6 +147,8 @@ Use a database for storing user inputs, generated content, and logs. For a produ
 - Use PostgreSQL or MongoDB.
 - Add schemas for structured data storage.
 
+<details>
+  
 Example with SQLAlchemy:
 ```python
 from flask_sqlalchemy import SQLAlchemy
@@ -159,10 +166,7 @@ created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 db.create_all()
 ```
-**Note:**
-vector databases can be used to store proprietary or private data (such as internal documents, research,
-product information, or any structured/unstructured text data). This stored data can then be used as
-context for answering user queries with the help of a Large Language Model (LLM).
+</details>
 
 ## 6. Logging and Monitoring
 
@@ -186,6 +190,9 @@ Deploy the app on cloud platforms like AWS, Google Cloud Platform (GCP), or Azur
 
 **Containerization**
 Use Docker to containerize the application for portability and easier deployment:
+
+<details>
+
 Dockerfile:
 
 ```python
@@ -202,8 +209,11 @@ CMD [&quot;gunicorn&quot;, &quot;-w&quot;, &quot;4&quot;, &quot;-b&quot;, &quot;
 CI/CD Pipeline
 Set up CI/CD pipelines using tools like GitHub Actions, Jenkins, or GitLab CI/CD.
 ```
+</details>
 
 ## 8. Proactive Enhancements
+
+<details>
 
 - Multi-Turn Interaction
 - Enable iterative refinements by storing user sessions using Flask-Session or Redis.
@@ -219,6 +229,7 @@ response = app.test_client().post(&#39;/generate&#39;, json={&quot;prompt&quot;:
 assert response.status_code == 200
 assert &quot;Processing&quot; in response.json[&#39;message&#39;]
 ```
+</details>
 
 ### Key Aspects:
 
@@ -229,3 +240,6 @@ assert &quot;Processing&quot; in response.json[&#39;message&#39;]
 4.  Deployment (Cloud Hosting, CI/CD, Monitoring)
 
 Once these optimizations are in place, the application will be reliable, scalable, and secure for production.
+
+![image](https://github.com/user-attachments/assets/d13b521c-ceca-4e2b-8fdb-f09777a55ab8)
+
