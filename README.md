@@ -2,10 +2,73 @@
 
 ![image](https://github.com/user-attachments/assets/7a167544-d7f8-4818-8a9b-bf3dcdde901e)
 
-## Key Features of the System
+# Key Features of the System
 1. **Autonomous Prioritization:** The RAG system dynamically adjusts sources and tone based on user preferences.
 2. **Interactive Refinements:** Users can iteratively refine results for better quality.
 3. **Multi-Format Outputs:** Supports text, images, memes, and video content tailored for different platforms.
+
+## Why Use Vector Databases with LLMs?
+
+LLMs like GPT-4 are powerful for answering questions but lack context about your proprietary data. A vector database solves this by:
+
+- Storing your proprietary data in a searchable format (as vectors).
+- Using the database to retrieve relevant information based on user queries.
+- Feeding this information (retrieved context) into the LLM to improve its response.
+
+## Benefits of Using Vector Databases for LLM Context
+
+1. Improved Accuracy: The LLM doesn’t need to &quot;guess&quot; answers—it has real data to back up its
+responses.
+2. Scalability: You can store and search through large volumes of proprietary data efficiently.
+3. Security: Proprietary data stays secure and isn’t sent to external APIs unnecessarily.
+4. Dynamic Updates: You can add, update, or delete records in the database dynamically.
+
+<details>
+
+```python
+#CODE IMPLEMENTATION (Overview)
+from sentence_transformers import SentenceTransformer
+import pinecone
+
+# Initialize embedding model
+
+embedding_model = SentenceTransformer(&#39;all-MiniLM-L6-v2&#39;)
+
+# Initialize vector database (Pinecone example)
+pinecone.init(api_key=&quot;YOUR_API_KEY&quot;, environment=&quot;us-west1-gcp&quot;)
+index = pinecone.Index(&quot;proprietary-data-index&quot;)
+
+# Step 1: Add proprietary data to the database
+documents = [
+{&quot;id&quot;: &quot;doc1&quot;, &quot;text&quot;: &quot;Company revenue grew by 20% in 2023.&quot;},
+{&quot;id&quot;: &quot;doc2&quot;, &quot;text&quot;: &quot;The company was founded in 2010.&quot;}
+]
+for doc in documents:
+embedding = embedding_model.encode(doc[&quot;text&quot;]).tolist()
+index.upsert([(doc[&quot;id&quot;], embedding)])
+
+# Step 2: User query
+query = &quot;What was the company’s growth in 2023?&quot;
+query_embedding = embedding_model.encode(query).tolist()
+
+# Step 3: Search for relevant context
+search_results = index.query(query_embedding, top_k=1, include_metadata=True)
+context = search_results[&quot;matches&quot;][0][&quot;metadata&quot;][&quot;text&quot;]
+
+# Step 4: Pass context and query to LLM
+from openai import ChatCompletion
+
+response = openai.ChatCompletion.create(
+model=&quot;gpt-4&quot;,
+messages=[
+{&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: context},
+{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: query}
+]
+)
+
+print(response[&quot;choices&quot;][0][&quot;message&quot;][&quot;content&quot;])
+```
+</details>
 
 # Steps to Make the RAG Application Production-Ready
 
