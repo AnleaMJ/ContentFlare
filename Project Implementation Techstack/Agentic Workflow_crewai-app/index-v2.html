@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CrewAI News Processing</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        #results { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>CrewAI News Processing</h1>
+    <form id="newsForm">
+        <input type="text" id="topicInput" placeholder="Enter news topic" required>
+        <button type="submit">Process News</button>
+    </form>
+    <div id="results"></div>
+
+    <script>
+        document.getElementById('newsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const topic = document.getElementById('topicInput').value;
+            const resultsDiv = document.getElementById('results');
+            
+            resultsDiv.innerHTML = 'Processing...';
+
+            // Send topic as a JSON payload
+            axios.post('/process_news', { topic })
+                .then(response => {
+                    resultsDiv.innerHTML = `
+                        <h2>Results for: ${response.data.topic}</h2>
+                        <pre>${JSON.stringify(response.data.results, null, 2)}</pre>
+                    `;
+                })
+                .catch(error => {
+                    resultsDiv.innerHTML = `Error: ${error.response ? error.response.data.error : error.message}`;
+                });
+        });
+    </script>
+</body>
+</html>
