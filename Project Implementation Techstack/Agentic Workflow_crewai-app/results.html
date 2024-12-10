@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Content</title>
+</head>
+<body>
+    <h1>Generated Article</h1>
+    <p>{{ article }}</p>
+    
+    <h2>Social Media Posts</h2>
+    <ul>
+        {% for post in social_media_posts %}
+        <li>
+            <strong>{{ post.platform }}:</strong>
+            <pre>{{ post.content }}</pre>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Go Back</a>
+</body>
+</html>
