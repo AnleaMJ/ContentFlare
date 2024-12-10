@@ -1,0 +1,29 @@
+tasks:
+  - name: retrieve_news
+    description: "Fetches the latest news articles from various sources based on the input topic or keyword."
+    input:
+      - "topic"
+    output:
+      - "articles"
+
+  - name: summarize_news
+    description: "Summarizes the fetched articles into concise and readable key points."
+    input:
+      - "articles"
+    output:
+      - "summaries"
+
+  - name: create_content
+    description: "Generates engaging content for daily news updates based on the summaries and articles."
+    input:
+      - "articles"
+      - "summaries"
+    output:
+      - "formatted_news_content"
+
+  - name: generate_social_media_posts
+    description: "Creates social media posts for promoting the daily news content."
+    input:
+      - "formatted_news_content"
+    output:
+      - "social_media_posts"
